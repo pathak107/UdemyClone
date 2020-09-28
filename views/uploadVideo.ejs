@@ -1,0 +1,51 @@
+<%- include('./partials/header'); -%>
+
+<br>
+<div class="container ">
+    <h4 class="center-align"><%= message %></h4>
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m4 l3">
+                <%if(course!=null){%>
+                <div class="card">
+                    <div class="card-image">
+                        <img src="/course-thumbnail/<%= course.imageUrl %>">
+                    </div>
+                    <div class="card-content">
+                        <h5><strong><%= course.title %></strong> </h5>
+                        <p><strong><%= course.instructor %></strong></p>
+                        <div class="row">
+                            <div class="col">
+                                <p><strong><%=course.enrolledUsers%> enrolled students</strong></p>
+                            </div>
+                            <div class="col">
+                                <p><strong><%= course.likes %> likes</strong></p>
+                            </div>
+                        </div>
+                        <h5>₹<%= course.price %></h5>
+                    </div>
+                </div>
+                <%}%>
+            </div>
+            <div class="col s12 m4 l3">
+                <%if(course!=null){%>
+                <form action="/admin/uploadVideo/<%=course._id%>" method="post" enctype="multipart/form-data">
+                    <div class="input-field">
+                        <p>Upload the video folder containing videos named in order like 1.mp4, 2.mp4</p>
+                        <input name="videoFolder" type="file" webkitdirectory mozdirectory />
+                    </div>
+                    <button class="btn waves-effect waves-light" type="submit" name="action">Submit
+                    </button>
+                </form>
+                <%}%>
+            </div>
+
+        </div>
+
+        <br>
+    </div>
+    <br>
+</div>
+
+</div>
+<%- include('./partials/footer'); -%>

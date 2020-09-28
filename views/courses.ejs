@@ -1,0 +1,89 @@
+<%- include('./partials/header'); -%>
+<div class="container">
+    <h2><%= message %></h2>
+
+    <br>
+    <!-- category form -->
+    <form action="" method="GET">
+        <div class="row">
+            <div class="input-field col s12 m6 l6">
+                <select class="category">
+                    <option value="" disabled selected>Choose your category</option>
+                    <% for(var i=0;i<categories.length ; i++) { %>
+                    <option value="<%= categories[i]._id %>"><%= categories[i].name %></option>
+                    <%}%>
+                </select>
+                <label>Category</label>
+            </div>
+            <div class="col s12 m6 l6">
+                <button class="grey darken-3 btn-large waves-effect waves-light" type="submit" name="action">Submit
+                </button>
+            </div>
+        </div>
+    </form>
+
+    <script>
+        $(document).ready(function () {
+            $('select').formSelect();
+        });
+        var form = document.querySelector('form');
+        $("select.category").change(function () {
+            var selectedCategory = $(this).children("option:selected").val();
+            form.action = "/courses?category=" + selectedCategory;
+        });
+    </script>
+
+    <br>
+
+    <div class="row">
+        <% if(courses.length>0) { %>
+                    <%for(var i=0;i< courses.length ; i++){%>
+                    <div class="col s12 m4 l3">
+                        <div class="card">
+                            <div class="card-image">
+                                <img src="./course-thumbnail/<%= courses[i].imageUrl %>">
+                            </div>
+                            <div class="card-content">
+                                <h5><strong><%= courses[i].title %></strong> </h5>
+                                <p><strong>Instructor: <%= courses[i].instructor %></strong></p>
+                                <div class="row">
+                                    <div class="col">
+                                        <p><strong><%= courses[i].enrolledUsers %> enrolled students</strong>
+                                        </p>
+                                    </div>
+                                    <div class="col">
+                                        <p><strong><%= courses[i].likes %> likes</strong></p>
+                                    </div>
+                                </div>
+                                <h5>₹<%= courses[i].price %></h5>
+                            </div>
+                            <div class="card-action grey darken-3">
+                                <a href="/courseSingle/<%= courses[i]._id %>" class="red-text lighten-1">View
+                                    Course</a>
+                                    
+                            </div>
+                        </div>
+                    </div>
+                    <%}%>
+        <%} else {%>
+                    <h4>Sorry! No courses available.</h4>
+                    <% } %>
+
+            </div>
+
+            <br>
+
+            <!-- pagination -->
+            <ul class="pagination center-align">
+                <li class="waves-effect"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
+                <li class="waves-effect active"><a href="#!">1</a></li>
+                <li class="waves-effect"><a href="#!">2</a></li>
+                <li class="waves-effect"><a href="#!">3</a></li>
+                <li class="waves-effect"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
+            </ul>
+
+            <br>
+
+        </div>
+
+        <%- include('./partials/footer'); -%>

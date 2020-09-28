@@ -1,0 +1,84 @@
+<%- include('./partials/header'); -%>
+<div class="grey lighten-1 banner">
+    <div class="container ">
+        <h2>Welcome to <span class="red-text lighten-1">Udemy</span></h2>
+        <h4>Your one stop solution for Learning.</h4>
+        <p>Udemy, Inc. is an American massive open online course provider aimed at professional adults and students. It
+            was founded in May 2010 by Eren Bali, Gagan Biyani, and Oktay Caglar. As of Jan 2020, the platform has more
+            than 35 million students and 57,000 instructors teaching courses in over 65 languages.</p>
+        <a class="button-round waves-effect waves-light btn red lighten-1" href="/courses">Explore Courses</a>
+    </div>
+</div>
+<div class="container">
+    <h1>Start Learning.</h1>
+    <h2>New Courses</h2>
+    <div class="row">
+        <%for(var i=0;i< recentCourses.length;i++){%>
+        <div class="col s12 m4 l3">
+            <div class="card">
+                <div class="card-image">
+                    <img src="./course-thumbnail/<%= recentCourses[i].imageUrl %>">
+                </div>
+                <div class="card-content">
+                    <h5><strong><%= recentCourses[i].title %></strong> </h5>
+                    <p><strong>Instructor: <%= recentCourses[i].instructor %></strong></p>
+                    <div class="row">
+                        <div class="col">
+                            <p><strong><%= recentCourses[i].enrolledUsers %> enrolled students</strong></p>
+                        </div>
+                        <div class="col">
+                            <p><strong><%= recentCourses[i].likes %> likes</strong></p>
+                        </div>
+                    </div>
+                    <h5>₹<%= recentCourses[i].price %></h5>
+                </div>
+                <div class="card-action grey darken-3">
+                    <a href="/courseSingle/<%= recentCourses[i]._id %>" class="red-text lighten-1">View Course</a>
+                </div>
+            </div>
+        </div>
+        <%}%>
+    </div>
+
+    <!-- Categories -->
+    <div>
+        <h2>Topics to Explore.</h2>
+        <div class="row">
+            <%for(var i=0;i<= categories.length/2;i++){%>
+        <div class="col s12 m4 l3" style="margin: 0.5rem;">
+            <a class=" grey darken-3 waves-effect waves-light btn"><%=categories[i].name%></a>
+        </div>
+        <%}%>
+        </div>
+    </div>
+
+<h2>Most Liked Courses</h2>
+<div class="row">
+    <%for(var i=0;i< mostLikedCourses.length;i++){%>
+        <div class="col s12 m4 l3">
+            <div class="card">
+                <div class="card-image">
+                    <img src="./course-thumbnail/<%= mostLikedCourses[i].imageUrl %>">
+                </div>
+                <div class="card-content">
+                    <h5><strong><%= mostLikedCourses[i].title %></strong> </h5>
+                    <p><strong>Instructor: <%= mostLikedCourses[i].instructor %></strong></p>
+                    <div class="row">
+                        <div class="col">
+                            <p><strong><%= mostLikedCourses[i].enrolledUsers %> enrolled students</strong></p>
+                        </div>
+                        <div class="col">
+                            <p><strong><%= mostLikedCourses[i].likes %> likes</strong></p>
+                        </div>
+                    </div>
+                    <h5>₹<%= mostLikedCourses[i].price %></h5>
+                </div>
+                <div class="card-action grey darken-3">
+                    <a href="/courseSingle/<%= mostLikedCourses[i]._id %>" class="red-text lighten-1">View Course</a>
+                </div>
+            </div>
+        </div>
+        <%}%>
+    </div>
+</div>
+<%- include('./partials/footer'); -%>

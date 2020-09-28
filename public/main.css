@@ -1,0 +1,25 @@
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+main {
+    flex: 1 0 auto;
+}
+
+.brand-logo {
+    margin-left: 2%;
+}
+
+.banner{
+    padding: 3rem;
+}
+.button-round{
+    border-radius: 100px;
+}
+.course-img{
+    margin-top: 2rem;
+    width: 500px;
+}
+

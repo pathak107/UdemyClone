@@ -1,0 +1,101 @@
+<%- include('./partials/header'); -%>
+
+<div class="container">
+    <img class="responsive-img course-img" src="/course-thumbnail/<%=course.imageUrl%>">
+    <h2><%=course.title%></h2>
+    <h4><strong>Instructor: <%=course.instructor%></strong></h4>
+    <div class="row">
+        <div class="col">
+            <p><strong><%=course.enrolledUsers%> enrolled students</strong></p>
+        </div>
+        <div class="col">
+            <p><strong><%=course.likes%> likes</strong></p>
+        </div>
+    </div>
+    <h3>₹<%=course.price%></h3>
+
+    <p>Purchase this course and start learning!</p>
+    <!-- buttons -->
+    <a href="/checkout/<%=course._id%>" class="waves-effect waves-light btn-large red lighten-1">Buy Now</a>
+
+    <!-- description -->
+    <div>
+        <h5>Description</h5>
+        <p>
+            <%-course.description%>
+        </p>
+    </div>
+
+    <br>
+
+    <!-- about instructor -->
+    <div>
+        <h5>Instructor</h5>
+        <img src="/images/userAvatar.png" style="width: 8%;" alt="" class="circle responsive-img">
+        <h6 class="red-text lighten-1"><strong><%=course.instructor%></strong></h6>
+        <p><%=course.aboutInstructor%></p>
+    </div>
+
+    <br>
+
+    <!-- related courses -->
+    <div>
+        <h5>Other popular courses</h5>
+        <div class="row">
+            <%for(var i=0;i< mostLikedCourses.length;i++){%>
+            <div class="col s12 m4 l3">
+                <div class="card">
+                    <div class="card-image">
+                        <img src="/course-thumbnail/<%= mostLikedCourses[i].imageUrl %>">
+                    </div>
+                    <div class="card-content">
+                        <h5><strong><%= mostLikedCourses[i].title %></strong> </h5>
+                        <p><strong>Instructor: <%= mostLikedCourses[i].instructor %></strong></p>
+                        <div class="row">
+                            <div class="col">
+                                <p><strong><%= mostLikedCourses[i].enrolledUsers %> enrolled students</strong></p>
+                            </div>
+                            <div class="col">
+                                <p><strong><%= mostLikedCourses[i].likes %> likes</strong></p>
+                            </div>
+                        </div>
+                        <h5>₹<%= mostLikedCourses[i].price %></h5>
+                    </div>
+                    <div class="card-action grey darken-3">
+                        <a href="/courseSingle/<%= mostLikedCourses[i]._id %>" class="red-text lighten-1">View
+                            Course</a>
+                    </div>
+                </div>
+            </div>
+            <%}%>
+        </div>
+    </div>
+
+    <br>
+
+    <!-- comments -->
+    <h5>Comments</h5>
+    <%if(comments.length>0){%>
+    <%for(var i=0;i< comments.length;i++){%>
+    <div class="card grey lighten-3">
+        <div class="card-content">
+            <span class="card-title"><strong><%= comments[i].name %></strong></span>
+            <p><%= comments[i].comment%>></p>
+        </div>
+        <%if(comments[i].userID==userID){%>
+        <div class="card-action ">
+            <a href="#" class="red-text lighten-1">Delete Comment</a>
+        </div>
+        <%}%>
+    </div>
+    <%}%>
+    <%}else{%>
+        <h6>No comments yet.</h6>
+    <%}%>
+    <br>
+
+
+
+</div>
+
+<%- include('./partials/footer'); -%>

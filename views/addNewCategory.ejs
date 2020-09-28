@@ -1,0 +1,22 @@
+<%- include('./partials/header'); -%>
+
+<br>
+<div class="container ">
+    <h4 class="center-align"><%= message%></h4>
+    <div class="container">
+        <form action="/admin/addCategory" method="post">
+            <div class="input-field">
+                <label for="category">Add a new category.</label>
+                <input id="category" name="category" required type="text" />
+            </div>
+            <button class="btn waves-effect waves-light" type="submit" name="action">Submit
+            </button>
+        </form>
+
+        <br>
+    </div>
+    <br>
+</div>
+
+</div>
+<%- include('./partials/footer'); -%>
