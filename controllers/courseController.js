@@ -127,13 +127,32 @@ exports.get_home_page = async (req, res) => {
 exports.get_myCourses_page = (req, res) => {
     User.findById(req.session.user_id, (err, user) => {
         if (err) console.log(err)
+
         var purchasedCourseIds = user.purchasedCourse;
-        Course.find({ '_id': { $in: purchasedCourseIds } }, (err, courses) => {
+        Course.find({ '_id': { $in: purchasedCourseIds } }, async(err, courses) => {
             if (err) console.log(err)
+
+            //find whether course is liked or not
+            const size = await User.aggregate([{ $match: { _id: req.session.user_id } }, { $project: { courses: { $size: '$likedCourses' } } }])
+            var likedCourses = (size[0].courses > 0) ? user.likedCourses : [];
+            var Liked = []
+            var alreadyLiked;
+            for (let i = 0; i < courses.length; i++) {
+                alreadyLiked = false;
+                for (let j = 0; j < likedCourses.length; j++) {
+                    if (likedCourses[j].toString() == courses[i]._id.toString()) {
+                        alreadyLiked = true;
+                    }
+                }
+                Liked[i] = alreadyLiked
+            }
+
+
             return res.render('myCourses', {
                 isLogged: req.session.isLogged,
                 adminLogged: req.session.adminLogged,
-                courses: courses
+                courses: courses,
+                Liked:Liked
             })
         }).select('-description -aboutInstructor')
     })
@@ -223,26 +242,43 @@ exports.get_checkout_page = async (req, res) => {
 
 exports.like_update = async (req, res) => {
     const courseID = req.params.courseID;
-    user = await User.findById(req.session.user_id);
-    const x = await User.aggregate([{ $match: { _id: req.session.user_id } }, { $project: { courses: { $size: '$courses' } } }])
-    var likedCourses = (user.likedCourses != [null]) ? user.likedCourses : [];
+    const user = await User.findById(req.session.user_id);
+    const size = await User.aggregate([{ $match: { _id: req.session.user_id } }, { $project: { courses: { $size: '$likedCourses' } } }])
+    var likedCourses = (size[0].courses > 0) ? user.likedCourses : [];
     var alreadyLiked = false;
-    console.log(x);
     for (let i = 0; i < likedCourses.length; i++) {
         if (likedCourses[i].toString() == courseID.toString()) {
             alreadyLiked = true;
         }
     }
     if (!alreadyLiked) {
+        const course = await Course.findById(courseID);
+        course.likes = course.likes + 1;
         user.likedCourses.push(courseID);
         user.save(() => {
-            return res.redirect('myCourses');
+            course.save(() => {
+                return res.redirect('/myCourses');
+            })
+        });
+    } else {
+        //filter arrat to contain only those courseid not equal to one passed in parameter
+        user.likedCourses = user.likedCourses.filter((value) => {
+            if (value != courseID) {
+                return value;
+            }
+        });
+        const course = await Course.findById(courseID);
+        course.likes = course.likes - 1;
+        user.save(() => {
+            course.save(() => {
+                return res.redirect('/myCourses');
+            })
         });
     }
 }
 
 exports.get_watchCourse_page = async (req, res) => {
-    var trackNum =req.query.trackNum?req.query.trackNum:0;
+    var trackNum = req.query.trackNum ? req.query.trackNum : 0;
     console.log(trackNum)
     Course.findById(req.params.courseID, (err, course) => {
         const directoryPath = path.join(__dirname, '../course-videos', course.videoUrl);
@@ -263,9 +299,9 @@ exports.get_watchCourse_page = async (req, res) => {
                 isLogged: req.session.isLogged,
                 adminLogged: req.session.adminLogged,
                 courseID: req.params.courseID,
-                path: path.join(directoryPath,courseTracks[trackNum]),
+                path: path.join(directoryPath, courseTracks[trackNum]),
                 imageUrl: course.imageUrl,
-                trackNum:trackNum,
+                trackNum: trackNum,
                 courseTracks: courseTracks
             });
         });

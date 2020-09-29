@@ -17,3 +17,7 @@
 # How to use:
  - ##### Create an account and purchase a course to stream.
  - ##### Use 4111 1111 1111 1111 as a test card for Razor pay. It won't deduct any amount. Its just for testing purposes.
+
+# Feature to add in future
+  - ##### Pagination on courses page
+  - ##### A way for intructors to make their account and add their courses instead of admin. And then transactions can occur between admin and instructor according to profit earned

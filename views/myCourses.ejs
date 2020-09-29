@@ -24,7 +24,12 @@
                     <h5>₹<%= courses[i].price %></h5>
                 </div>
                 <div class="card-action grey darken-3">
-                    <a href="/likeUpdate/<%= courses[i]._id %>"><i class="material-icons left">favorite</i>Like</a>
+                    <%if(Liked[i]==true){%>
+                        <a href="/likeUpdate/<%= courses[i]._id %>"><i class="material-icons left">favorite</i>Unlike</a>
+                    <%}else{%>
+                        <a href="/likeUpdate/<%= courses[i]._id %>"><i class="material-icons left">favorite</i>Like</a>
+                    <%}%>
+                    
                     <a href="/watchCourse/<%=courses[i]._id%>">Start Learning</a>
                 </div>
             </div>

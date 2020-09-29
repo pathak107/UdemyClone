@@ -44,11 +44,15 @@
     <div>
         <h2>Topics to Explore.</h2>
         <div class="row">
-            <%for(var i=0;i<= categories.length/2;i++){%>
+            <form action="/courses" method="post">
+                <%for(var i=0;i < categories.length;i++){%>
         <div class="col s12 m4 l3" style="margin: 0.5rem;">
-            <a class=" grey darken-3 waves-effect waves-light btn"><%=categories[i].name%></a>
+            <button value="<%=categories[i]._id%>" class="grey darken-3 btn waves-effect waves-light" type="submit" name="category"><%=categories[i].name%>
+            </button>
         </div>
         <%}%>
+            </form>
+        
         </div>
     </div>
 
