@@ -15,10 +15,12 @@ const UserSchema = new mongoose.Schema({
         required: true
     },
     purchasedCourse: { //an arrat of course ids
-        type: Array
+        type: Array,
+        default:[]
     },
     likedCourses : {
-        type: Array
+        type: Array,
+        default:[]
     }
 });
 

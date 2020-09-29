@@ -30,16 +30,27 @@
             </div>
             <div class="col s12 m6 l6">
                 <%if(course!=null){%>
-                    <button class="center-align grey darken-3 btn-large waves-effect waves-light" type="submit" name="action">Pay with Razorpay</button>
-                <!-- <form action="/admin/uploadVideo/<%=course._id%>" method="post" enctype="multipart/form-data">
-                    <div class="input-field">
-                        <p>Upload the video folder containing videos named in order like 1.mp4, 2.mp4</p>
-                        <input name="videoFolder" type="file" webkitdirectory mozdirectory />
-                    </div>
-                    <button class="btn waves-effect waves-light" type="submit" name="action">Submit
-                    </button>
-                </form> -->
+                <!-- <button class="center-align grey darken-3 btn-large waves-effect waves-light" type="submit" name="action">Pay with Razorpay</button> -->
+                <form action="/checkout/<%= course._id %>" method="POST">
+                    <script src="https://checkout.razorpay.com/v1/checkout.js" data-key="rzp_test_DXJcwWO1ConX0C"
+                        data-amount="<%= amount %>" data-currency="INR" data-order_id="<%= order_id %>"
+                        data-buttontext="PAY NOW" data-name="Udemy" data-description="Test transaction"
+                        data-image="/images/udemyLogo.jpg" data-prefill.name="<%= userName %>"
+                        data-prefill.email="<%= userEmail %>" data-theme.color="#F37254">
+                        </script>
+                    <input type="hidden" custom="Hidden Element" name="order_id" value="<%= order_id %>">
+                    <input type="hidden" custom="Hidden Element" name="amount" value="<%= amount %>">
+                </form>
                 <%}%>
+
+                <style>
+                    .razorpay-payment-button{
+                        background-color: #3B3B3B;
+                        color:white;
+                        padding: 1rem;
+                        box-shadow: none;
+                    }
+                </style>
             </div>
 
         </div>

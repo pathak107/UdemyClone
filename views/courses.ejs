@@ -4,10 +4,10 @@
 
     <br>
     <!-- category form -->
-    <form action="" method="GET">
+    <form method="POST" action="/courses">
         <div class="row">
             <div class="input-field col s12 m6 l6">
-                <select class="category">
+                <select class="category" name="category">
                     <option value="" disabled selected>Choose your category</option>
                     <% for(var i=0;i<categories.length ; i++) { %>
                     <option value="<%= categories[i]._id %>"><%= categories[i].name %></option>
@@ -26,11 +26,6 @@
         $(document).ready(function () {
             $('select').formSelect();
         });
-        var form = document.querySelector('form');
-        $("select.category").change(function () {
-            var selectedCategory = $(this).children("option:selected").val();
-            form.action = "/courses?category=" + selectedCategory;
-        });
     </script>
 
     <br>
@@ -38,7 +33,7 @@
     <div class="row">
         <% if(courses.length>0) { %>
                     <%for(var i=0;i< courses.length ; i++){%>
-                    <div class="col s12 m4 l3">
+                    <div class="col s12 m4 l4">
                         <div class="card">
                             <div class="card-image">
                                 <img src="./course-thumbnail/<%= courses[i].imageUrl %>">
@@ -60,7 +55,7 @@
                             <div class="card-action grey darken-3">
                                 <a href="/courseSingle/<%= courses[i]._id %>" class="red-text lighten-1">View
                                     Course</a>
-                                    
+
                             </div>
                         </div>
                     </div>

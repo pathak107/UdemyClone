@@ -1,0 +1,40 @@
+<%- include('./partials/header'); -%>
+<div class="container">
+    <h4>The complete Backend developer using nodejs</h4>
+    <div class="row">
+        <div class="col s12 m6 l6">
+            <video width="100%" autoplay poster="/course-thumbnail/<%=imageUrl%>" controls>
+                <source src="/video/<%=courseID%>?path=<%=path%>" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+        <div class="col s12 m6 l6">
+            <h4>Course Track</h4>
+            <div class="collection">
+                <%for(var i=0; i< courseTracks.length ; i++ ){ %>
+                    <%if(i==trackNum){%>
+                        <a href="/watchCourse/<%=courseID%>?trackNum=<%=i%>" class="collection-item active"><%=courseTracks[i]%></a>
+                    <%}else{%>
+                        <a href="/watchCourse/<%=courseID%>?trackNum=<%=i%>" class="collection-item"><%=courseTracks[i]%></a>
+                    <%}%>
+                <%}%>
+            </div>
+        </div>
+    </div>
+
+    <h5>Write a Comment</h5>
+    <!-- Write a comment -->
+    <form action="/comment/<%= courseID %>" method="POST">
+        <div class="row">
+            <div class="col">
+                <textarea name="comment" class="materialize-textarea" cols="30" rows="10"></textarea>
+                <button class="btn waves-effect waves-light red lighten-1" type="submit" name="action">Submit</button>
+            </div>
+        </div>
+
+    </form>
+
+</div>
+<script src="https://vjs.zencdn.net/7.8.4/video.js"></script>
+
+<%- include('./partials/footer'); -%>

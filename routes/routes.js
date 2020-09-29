@@ -13,6 +13,8 @@ const checkAuth=require('../middlewares/checkAuth')
 const adminCheckAuth=require('../middlewares/adminCheckAuth')
 const uploadImage=require('../middlewares/multerUploadImage')
 const uploadVideo=require('../middlewares/multerUploadVideo')
+const checkPurchasedCourse=require('../middlewares/checkPurchasedCourse')
+const videoController=require('../controllers/videoController')
 
 //Auth routes
 router.get('/login',authController.login_page_get)
@@ -40,12 +42,20 @@ router.get('/',courseController.get_home_page)
 //courses and course-single
 router.use('/courses/',express.static('public'));
 router.get('/courses',courseController.get_all_courses)
+router.post('/courses',courseController.get_courses_of_category)
 router.get('/courseSingle/:courseID',courseController.get_single_course);
 
 //course watch and my courses
 //user needs to be logged in for watching their courses
 router.get('/myCourses',checkAuth,courseController.get_myCourses_page)
+router.get('/likeUpdate/:courseID',checkAuth,courseController.like_update)
 router.get('/checkout/:courseID',checkAuth,courseController.get_checkout_page)
+router.post('/checkout/:courseID',courseController.verify_payment)
+
+router.get('/watchCourse/:courseID',checkAuth,checkPurchasedCourse,courseController.get_watchCourse_page);
+router.post('/comment/:courseID',checkAuth,checkPurchasedCourse,courseController.create_comment);
+router.get('/comment/delete/:commentID',checkAuth,courseController.delete_comment)
+router.get('/video/:courseID',checkAuth,checkPurchasedCourse,videoController.get_video)
 
 
 module.exports = router

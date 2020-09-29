@@ -1,102 +1,39 @@
 <%- include('./partials/header'); -%>
-        <div class="container">
-            <h2>Your Courses</h2>
-            <div class="row">
-                <div class="col s12 m4 l3">
-                    <div class="card">
-                        <div class="card-image">
-                            <img src="./nodejs.png">
+<div class="container">
+    <h2>Your Courses</h2>
+    <div class="row">
+        <% if(courses.length>0) { %>
+        <%for(var i=0;i< courses.length ; i++){%>
+        <div class="col s12 m4 l4">
+            <div class="card">
+                <div class="card-image">
+                    <img src="./course-thumbnail/<%= courses[i].imageUrl %>">
+                </div>
+                <div class="card-content">
+                    <h5><strong><%= courses[i].title %></strong> </h5>
+                    <p><strong>Instructor: <%= courses[i].instructor %></strong></p>
+                    <div class="row">
+                        <div class="col">
+                            <p><strong><%= courses[i].enrolledUsers %> enrolled students</strong>
+                            </p>
                         </div>
-                        <div class="card-content">
-                            <h5><strong>The complete Backend developer using nodejs</strong> </h5>
-                            <p><strong>Instructor: Shubham Pathak</strong></p>
-                            <div class="row">
-                                <div class="col">
-                                    <p><strong>100 enrolled students</strong></p>
-                                </div>
-                                <div class="col">
-                                    <p><strong>56 likes</strong></p>
-                                </div>
-                            </div>
-                            <h5>₹200</h5>
-                        </div>
-                        <div class="card-action grey darken-3">
-                            <a href=""><i class="material-icons left">favorite</i>Like</a>
-                            <a href="#">Start Learning</a>
+                        <div class="col">
+                            <p><strong><%= courses[i].likes %> likes</strong></p>
                         </div>
                     </div>
+                    <h5>₹<%= courses[i].price %></h5>
                 </div>
-                <div class="col s12 m4 l3">
-                    <div class="card">
-                        <div class="card-image">
-                            <img src="./nodejs.png">
-                        </div>
-                        <div class="card-content">
-                            <h5><strong>The complete Backend developer using nodejs</strong> </h5>
-                            <p><strong>Instructor: Shubham Pathak</strong></p>
-                            <div class="row">
-                                <div class="col">
-                                    <p><strong>100 enrolled students</strong></p>
-                                </div>
-                                <div class="col">
-                                    <p><strong>56 likes</strong></p>
-                                </div>
-                            </div>
-                            <h5>₹200</h5>
-                        </div>
-                        <div class="card-action grey darken-3">
-                            <a href="#">Start Learning</a>
-                        </div>
-                    </div>
+                <div class="card-action grey darken-3">
+                    <a href="/likeUpdate/<%= courses[i]._id %>"><i class="material-icons left">favorite</i>Like</a>
+                    <a href="/watchCourse/<%=courses[i]._id%>">Start Learning</a>
                 </div>
-                <div class="col s12 m4 l3">
-                    <div class="card">
-                        <div class="card-image">
-                            <img src="./nodejs.png">
-                        </div>
-                        <div class="card-content">
-                            <h5><strong>The complete Backend developer using nodejs</strong> </h5>
-                            <p><strong>Instructor: Shubham Pathak</strong></p>
-                            <div class="row">
-                                <div class="col">
-                                    <p><strong>100 enrolled students</strong></p>
-                                </div>
-                                <div class="col">
-                                    <p><strong>56 likes</strong></p>
-                                </div>
-                            </div>
-                            <h5>₹200</h5>
-                        </div>
-                        <div class="card-action grey darken-3">
-                            <a href="#">Start Learning</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col s12 m4 l3">
-                    <div class="card">
-                        <div class="card-image">
-                            <img src="./nodejs.png">
-                        </div>
-                        <div class="card-content">
-                            <h5><strong>The complete Backend developer using nodejs</strong> </h5>
-                            <p><strong>Instructor: Shubham Pathak</strong></p>
-                            <div class="row">
-                                <div class="col">
-                                    <p><strong>100 enrolled students</strong></p>
-                                </div>
-                                <div class="col">
-                                    <p><strong>56 likes</strong></p>
-                                </div>
-                            </div>
-                            <h5>₹200</h5>
-                        </div>
-                        <div class="card-action grey darken-3">
-                            <a href="#">Start Learning</a>
-                        </div>
-                    </div>
-                </div>
-
             </div>
         </div>
-        </div>
-        <%- include('./partials/footer'); -%>
+        <%}%>
+        <%} else {%>
+        <h4>Sorry! No courses available. Buy new course now and start learning!</h4>
+        <% } %>
+    </div>
+</div>
+</div>
+<%- include('./partials/footer'); -%>

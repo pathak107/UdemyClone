@@ -1,6 +1,5 @@
 const mongoose=require('mongoose');
 var commentSchema= new mongoose.Schema({
-    name:String,
     comment:String,
     timestamp:{ type: Date, default: Date.now },
     courseID:{
