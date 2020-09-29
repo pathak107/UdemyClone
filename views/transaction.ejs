@@ -1,0 +1,18 @@
+<%- include('./partials/header'); -%>
+
+<br>
+<div class="container">
+    <%for(var i=0;i< transactions.length; i++) { %>
+    <ul class="collection with-header">
+        <li class="collection-header">
+            <h4><%= transactions[i].courseID.title %></h4>
+        </li>
+        <li class="collection-item"><strong>Amount: ₹<%= transactions[i].amount %></strong></li>
+        <li class="collection-item"><strong>Transaction made on: <%= transactions[i].timestamp%></strong></li>
+    </ul>
+    <%}%>
+    
+</div>
+<br>
+
+<%- include('./partials/footer'); -%>

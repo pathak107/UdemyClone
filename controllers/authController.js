@@ -1,5 +1,7 @@
 const User = require('../models/user');
 const bcrypt = require('bcrypt');
+const Transaction = require('../models/transactions');
+const transactions = require('../models/transactions');
 const saltRounds = 10;
 
 exports.register_page_get = (req, res) => {
@@ -109,4 +111,19 @@ exports.logout = (req, res) => {
         console.log('logged out');
         res.redirect('/');
     })
+}
+
+
+exports.get_transaction_page = (req, res) => {
+    Transaction.find({userID:req.session.user_id},(err,transactions)=>{
+        if(err) console.log(err)
+
+        res.render('transaction', {
+            isLogged: req.session.isLogged,
+            adminLogged: req.session.adminLogged,
+            transactions:transactions
+        })
+    })
+    .populate('courseID','-description -aboutInstructor')
+    
 }

@@ -23,6 +23,7 @@ router.post('/login',authController.login_user)
 router.get('/logout',authController.logout)
 router.get('/register',authController.register_page_get)
 router.post('/register',authController.register_user)
+router.get('/transaction',checkAuth,authController.get_transaction_page)
 
 //Admin routes
 //Serving Static files

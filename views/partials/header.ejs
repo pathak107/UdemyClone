@@ -32,6 +32,7 @@
 
                     <%if(isLogged==true){%>
                         <li id="logout"><a href="/logout">Logout</a></li>
+                        <li id="trans"><a href="/transaction">My transactions</a></li>
                     <%}else if(adminLogged==true){%>
                         <li id="adminLogout"><a href="/admin/logout">Logout</a></li>
                         <li id="newCourse"><a href="/admin/newCourse">New Course</a></li>
@@ -91,6 +92,10 @@
             }
             else if (route.includes('/watchCourse')) {
                 document.getElementById('myCourses').classList.add('active');
+                document.getElementById('home').classList.remove('active');
+            }
+            else if (route.includes('/transaction')) {
+                document.getElementById('trans').classList.add('active');
                 document.getElementById('home').classList.remove('active');
             }
         </script>
