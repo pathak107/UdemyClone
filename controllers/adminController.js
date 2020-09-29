@@ -93,7 +93,7 @@ exports.create_uploadVideo = (req, res) => {
                 course: null
             });
         }
-        course.videoUrl = req.file.filename;
+        course.videoUrl = req.videoFolder;
         course.save();
         res.redirect('/courses')
     })

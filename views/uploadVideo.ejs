@@ -31,7 +31,7 @@
                 <%if(course!=null){%>
                 <form action="/admin/uploadVideo/<%=course._id%>" method="post" enctype="multipart/form-data">
                     <div class="input-field">
-                        <p>Upload the video folder containing videos named in order like 1.mp4, 2.mp4</p>
+                        <p>Upload the video folder containing all the video lectures. Remeber you can't upload more than 100 files.</p>
                         <input name="videoFolder" type="file" webkitdirectory mozdirectory />
                     </div>
                     <button class="btn waves-effect waves-light" type="submit" name="action">Submit

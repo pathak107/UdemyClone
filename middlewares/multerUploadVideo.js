@@ -3,11 +3,13 @@ const multer = require('multer');
 //Multer storage settings
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, './public/course-videos')    
+    cb(null, './course-videos/'+req.videoFolder)    
   },
   filename: function (req, file, cb) {
-    cb(null, new Date().getTime()+"-"+file.originalname);
+    cb(null, file.originalname);
   }
 })
-var uploadVideo = multer({ storage: storage })
+var uploadVideo = multer({ storage: storage }).array('videoFolder',100);
 module.exports=uploadVideo;
+
+//http://localhost:3000/admin/uploadVideo/5f7315d071572645cc5b3c09

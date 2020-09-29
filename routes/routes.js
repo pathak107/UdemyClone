@@ -15,6 +15,7 @@ const uploadImage=require('../middlewares/multerUploadImage')
 const uploadVideo=require('../middlewares/multerUploadVideo')
 const checkPurchasedCourse=require('../middlewares/checkPurchasedCourse')
 const videoController=require('../controllers/videoController')
+const setFolderName=require('../middlewares/setFolderName')
 
 //Auth routes
 router.get('/login',authController.login_page_get)
@@ -34,7 +35,7 @@ router.post('/admin/newCourse',adminCheckAuth,uploadImage.single('img'),adminCon
 router.get('/admin/addCategory',adminCheckAuth,adminController.get_addCategory_page);
 router.post('/admin/addCategory',adminCheckAuth,adminController.create_newCategory)
 router.get('/admin/uploadVideo/:courseID',adminCheckAuth,adminController.get_uploadVideo_page)
-router.post('/admin/uploadVideo/:courseID',adminCheckAuth,uploadVideo.single('videoFolder'),adminController.create_uploadVideo)
+router.post('/admin/uploadVideo/:courseID',adminCheckAuth,setFolderName,uploadVideo,adminController.create_uploadVideo)
 
 // Home Routes
 router.get('/',courseController.get_home_page)
